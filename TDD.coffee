@@ -23,7 +23,6 @@ describe "testing string", ->
   it "should create string form contets of object", ->
     assert.equal(str("Emma","Brennan"),"My name is Emma my partner is Brennan.")
 
-
 #Ranges, slicing, and splicing
 rangeOf = (min, max) ->
   [min..max]
