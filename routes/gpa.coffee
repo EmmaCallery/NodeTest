@@ -1,3 +1,7 @@
+getGPAArray = require('./../routes/gpaFunctions').getGPAArray
+getGPA = require("./../routes/gpaFunctions").getGPA
+
+
 headerStr = '<!DOCTYPE html>\n
 <html>\n
 <head>\n
@@ -6,7 +10,21 @@ headerStr = '<!DOCTYPE html>\n
 <body>\n'
 
 formString = '<form method="post" action="/gpa">\n
-        <input type="text" id="grades" name="grades" value="F" />\n
+        <label>Class 1: </label>\n
+        <select id="grades" name="grades">\n
+            <option value="A">A</option>\n
+            <option value="A-">A-</option>\n
+            <option value="B+">B+</option>\n
+            <option value="B">B</option>\n
+            <option value="B-">B-</option>\n
+            <option value="C+">C+</option>\n
+            <option value="C">C</option>\n
+            <option value="C-">C-</option>\n
+            <option value="D+">D+</option>\n
+            <option value="D">D</option>\n
+            <option value="D-">D-</option>\n
+            <option value="F">F</option>\n
+        </select>\n
         <select id="credits" name="credits">\n
             <option value="1">1</option>\n
             <option value="2">2</option>\n
@@ -15,7 +33,21 @@ formString = '<form method="post" action="/gpa">\n
             <option value="5">5</option>\n
         </select>\n
         <br />\n
-        <input type="text" id="grades1" name="grades1" value="F" />\n
+        <label>Class 2: </label>\n
+        <select id="grades1" name="grades1">\n
+                <option value="A">A</option>\n
+                <option value="A-">A-</option>\n
+                <option value="B+">B+</option>\n
+                <option value="B">B</option>\n
+                <option value="B-">B-</option>\n
+                <option value="C+">C+</option>\n
+                <option value="C">C</option>\n
+                <option value="C-">C-</option>\n
+                <option value="D+">D+</option>\n
+                <option value="D">D</option>\n
+                <option value="D-">D-</option>\n
+                <option value="F">F</option>\n
+        </select>\n
         <select id="credits1" name="credits1">\n
             <option value="1">1</option>\n
             <option value="2">2</option>\n
@@ -24,7 +56,21 @@ formString = '<form method="post" action="/gpa">\n
             <option value="5">5</option>\n
         </select>\n
         <br />\n
-        <input type="text" id="grades2" name="grades2" value="F" />\n
+        <label>Class 3: </label>\n
+        <select id="grades2" name="grades2">\n
+            <option value="A">A</option>\n
+            <option value="A-">A-</option>\n
+            <option value="B+">B+</option>\n
+            <option value="B">B</option>\n
+            <option value="B-">B-</option>\n
+            <option value="C+">C+</option>\n
+            <option value="C">C</option>\n
+            <option value="C-">C-</option>\n
+            <option value="D+">D+</option>\n
+            <option value="D">D</option>\n
+            <option value="D-">D-</option>\n
+            <option value="F">F</option>\n
+        </select>\n
         <select id="credits2" name="credits2">\n
             <option value="1">1</option>\n
             <option value="2">2</option>\n
@@ -33,7 +79,21 @@ formString = '<form method="post" action="/gpa">\n
             <option value="5">5</option>\n
         </select>\n
         <br />\n
-        <input type="text" id="grades3" name="grades3" value="F" />\n
+        <label>Class 4: </label>\n
+        <select id="grades3" name="grades3">\n
+            <option value="A">A</option>\n
+            <option value="A-">A-</option>\n
+            <option value="B+">B+</option>\n
+            <option value="B">B</option>\n
+            <option value="B-">B-</option>\n
+            <option value="C+">C+</option>\n
+            <option value="C">C</option>\n
+            <option value="C-">C-</option>\n
+            <option value="D+">D+</option>\n
+            <option value="D">D</option>\n
+            <option value="D-">D-</option>\n
+            <option value="F">F</option>\n
+        </select>\n
         <select id="credits3" name="credits3">\n
             <option value="1">1</option>\n
             <option value="2">2</option>\n
@@ -47,60 +107,6 @@ formString = '<form method="post" action="/gpa">\n
 
 footerStr = '</body>\n</html>'
 
-exports.getGPAArray = (gradeArray) ->
-  gpaArray = []
-  pos = 0
-  for grade in gradeArray
-    if grade is 'A'
-      gpaArray[pos] = 4.0
-      pos++
-    if grade is 'A-'
-      gpaArray[pos] = 3.7
-      pos++
-    if grade is 'B+'
-      gpaArray[pos] = 3.3
-      pos++
-    if grade is 'B'
-      gpaArray[pos] = 3.0
-      pos++
-    if grade is 'B-'
-      gpaArray[pos] = 2.7
-      pos++
-    if grade is 'C+'
-      gpaArray[pos] = 2.3
-      pos++
-    if grade is 'C'
-      gpaArray[pos] = 2.0
-      pos++
-    if grade is 'C-'
-      gpaArray[pos] = 1.7
-      pos++
-    if grade is 'D+'
-      gpaArray[pos] = 1.3
-      pos++
-    if grade is 'D'
-      gpaArray[pos] = 1.0
-      pos++
-    if grade is 'D-'
-      gpaArray[pos] = 0.7
-      pos++
-
-    if grade is 'F'
-      gpaArray[pos] = 0
-      pos++
-  gpaArray
-
-exports.getGPA = (gpaArr, creditArray) ->
-  pos = 0
-  for gpa in gpaArr
-    gpa *= creditArray[pos]
-    pos++
-  sumGPA = 0
-  sumGPA += gpa for gpa in gpaArr
-  sumCredit = 0
-  sumCredit += credit for credit in creditArray
-  sumGPA/sumCredit
-
 exports.formResponse = (req, res) ->
   res.render 'gpa'
 
@@ -112,14 +118,17 @@ exports.postResponse = (req, res) ->
   gradeArr[3] = req.body.grades3
 
   creditArr = []
-  creditArr[0] = req.body.credits
-  creditArr[1] = req.body.credits1
-  creditArr[2] = req.body.credits2
-  creditArr[3] = req.body.credits3
+  creditArr[0] = parseFloat(req.body.credits)
+  creditArr[1] = parseFloat(req.body.credits1)
+  creditArr[2] = parseFloat(req.body.credits2)
+  creditArr[3] = parseFloat(req.body.credits3)
+
+  gpaArr = getGPAArray(gradeArr)
+
+  gpa = getGPA(gpaArr,creditArr)
 
 
-
-  res.send headerStr + formString + '<p>You have a ' + req.body.credits + ' GPA. </p>' + footerStr
+  res.send headerStr + formString + '<p>You have a ' + gpa.toFixed(2) + ' GPA. </p>' + footerStr
 
 
 
